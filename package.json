@@ -4,13 +4,23 @@
   "author": "AlexPlex",
   "licence": "UNLICENSED",
   "private": true,
+  "directories": {
+    "app": "./client/public",
+    "output": "./electron-dist"
+  },
+  "build": {
+    "appId": "com.example.electron-app"
+  },
   "scripts": {
+    "postinstall": "install-app-deps",
     "start": "npm run build:dev",
     "server": "lite-server -c server.config.json",
     "build:dev": "set NODE_ENV=development&& npm run copy-files && webpack --config webpack.dev.config.js --watch",
     "build:prod": "set NODE_ENV=production&& npm run copy-files && webpack --config webpack.prod.config.js",
     "copy-files": "cp client/app/package.json client/public/",
-    "electron": "electron client/public/"
+    "electron": "electron client/public/",
+    "electron:pack": "npm run build:prod && build --dir",
+    "electron:dist": "npm run build:prod && build"
   },
   "dependencies": {
     "@angular/common": "^2.4.1",
@@ -38,6 +48,7 @@
     "css-loader": "^0.26.1",
     "cssnano": "^3.9.1",
     "electron": "^1.4.10",
+    "electron-builder": "^10.12.0",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.24.1",
     "json-loader": "^0.5.4",
